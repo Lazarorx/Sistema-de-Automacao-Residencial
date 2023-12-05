@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Automação Residencial</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap">
+    <style>
+        body {
+            padding: 20px;
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            animation: gradientAnimation 10s ease infinite alternate;
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        .device {
+            margin-bottom: 20px;
+            border: 2px solid #495057;
+            padding: 15px;
+            border-radius: 8px;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+        }
+        h1, h2 {
+            color: #61dafb;
+        }
+        button {
+            margin-top: 10px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            border: 2px solid #1a1a1a;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+        button:hover {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: #ffffff;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+        }
+        button:active {
+            box-shadow: 0 0 5px rgba(255, 255, 255, 1);
+            transform: scale(0.9);
+        }
+        button i {
+            margin-right: 8px;
+        }
+        button#toggleSecurity {
+            color: #ffffff;
+        }
+        button#toggleSecurity:hover {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.8);
+        }
+        input {
+            margin-top: 10px;
+        }
+        input[type="number"] {
+            width: 60px;
+            text-align: center;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 8px;
+        }
+        input[type="range"] {
+            width: 100%;
+            margin-top: 10px;
+        }
+        /* Adicionando responsividade para dispositivos menores */
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            .device {
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Sistema de Automação Residencial</h1>
+
+    <div class="device">
+        <h2>Controle de Iluminação</h2>
+        <button id="lightOn" class="btn btn-success"><i class="fas fa-lightbulb"></i> Ligar Luz</button>
+        <button id="lightOff" class="btn btn-danger"><i class="far fa-lightbulb"></i> Desligar Luz</button>
+    </div>
+
+    <div class="device">
+        <h2>Termostato Inteligente</h2>
+        <label for="temperature">Temperatura:</label>
+        <input type="number" id="temperature" class="form-control" placeholder="Defina a temperatura">
+        <input type="range" id="temperatureSlider" min="0" max="100" step="1">
+    </div>
+
+    <div class="device">
+        <h2>Sistema de Segurança</h2>
+        <button id="toggleSecurity" class="btn btn-warning"><i class="fas fa-shield-alt"></i> Ativar/Desativar Sistema de Segurança</button>
+    </div>
+
+    <div class="device">
+        <h2>Controle de Cortinas e Persianas</h2>
+        <button id="toggleBlinds" class="btn btn-info"><i class="fas fa-blinds"></i> Abrir/Fechar Cortinas e Persianas</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://unpkg.com/@kemitchell/inputmode-slider@1.0.0"></script>
+    <script src="frontend.js"></script>
+
+    <script>
+        const temperatureInput = document.getElementById('temperature');
+        const temperatureSlider = document.getElementById('temperatureSlider');
+
+        temperatureInput.addEventListener('input', updateTemperature);
+        temperatureSlider.addEventListener('input', updateTemperature);
+
+        function updateTemperature() {
+            const temperatureValue = Math.min(temperatureInput.value, temperatureSlider.max);
+            temperatureInput.value = temperatureValue;
+            temperatureSlider.value = temperatureValue;
+        }
+    </script>
+</body>
+</html>
